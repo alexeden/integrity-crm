@@ -4,6 +4,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { environment } from '@crm/environments/environment';
+import { VendorModule } from './vendor.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -18,6 +19,7 @@ import { CustomerDetailsComponent } from './customer-details';
   ],
   imports: [
     BrowserModule,
+    VendorModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

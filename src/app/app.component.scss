@@ -10,5 +10,12 @@
 
   mat-sidenav-container {
     width: 100%;
+    display: flex;
+    flex-direction: row;
   }
+
+  .mat-drawer {
+    position: relative;
+  }
+
 }

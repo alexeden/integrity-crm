@@ -7,9 +7,14 @@ import { environment } from '@crm/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { CustomerListComponent } from './customer-list';
+import { CustomerDetailsComponent } from './customer-details';
+
 @NgModule({
   declarations: [
     AppComponent,
+    CustomerListComponent,
+    CustomerDetailsComponent,
   ],
   imports: [
     BrowserModule,

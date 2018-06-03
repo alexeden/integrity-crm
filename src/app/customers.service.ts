@@ -1,9 +1,9 @@
-import { ConnectableObservable, from } from 'rxjs';
-import { publishReplay, exhaustMap, scan } from 'rxjs/operators';
+import { ConnectableObservable, from, Observable } from 'rxjs';
+import { publishReplay, exhaustMap, scan, map, filter } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from 'angularfire2/firestore';
 
-import { Customer, Id } from '@crm/shared';
+import { Customer, Id } from '@crm/lib';
 
 @Injectable()
 export class CustomersService {
@@ -20,17 +20,12 @@ export class CustomersService {
       scan<DocumentChangeAction<Customer>, Array<Id<Customer>>>(
         (cs, change) => {
           const id = change.payload.doc.id;
+          const data = change.payload.doc.data();
+          const newC = { id, ...data };
           switch (change.type) {
-            case 'added':
-              return [ ...cs, { id, ...change.payload.doc.data() } ];
-            case 'removed':
-              return cs.filter(c => c.id !== id);
-            case 'modified':
-              return cs.map(c =>
-                c.id === id
-                ? { id, ...change.payload.doc.data() }
-                : c
-              );
+            case 'added': return [ ...cs, newC ];
+            case 'removed': return cs.filter(c => c.id !== id);
+            case 'modified': return cs.map(c => c.id === id ? newC : c);
           }
         },
         []
@@ -41,5 +36,12 @@ export class CustomersService {
     // ) as ConnectableObservable<Customer[]>;
 
     this.customers.connect();
+  }
+
+  customerById(cid: string): Observable<Id<Customer>> {
+    return this.customers.pipe(
+      map(cs => cs.find(({ id }) => id === cid)),
+      filter<Id<Customer>>(c => !!c)
+    );
   }
 }

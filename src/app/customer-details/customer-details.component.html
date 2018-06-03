@@ -1,2 +1,2 @@
-<h1>{{ cid | async }}</h1>
+<h1>{{ details | async | prop:'firstName' }} {{ details | async | prop:'lastName' }}</h1>
 <crm-payments [cid]="cid | async"></crm-payments>

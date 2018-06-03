@@ -10,13 +10,17 @@ import { AppComponent } from './app.component';
 
 import { CustomersService } from './customers.service';
 import { CustomerListComponent } from './customer-list';
-import { CustomerDetailsComponent } from './customer-details';
+import {
+  CustomerDetailsComponent,
+  NoCustomerSelectedComponent,
+} from './customer-details';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerListComponent,
     CustomerDetailsComponent,
+    NoCustomerSelectedComponent,
   ],
   imports: [
     BrowserModule,

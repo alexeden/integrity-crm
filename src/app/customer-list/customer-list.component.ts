@@ -1,3 +1,4 @@
+import { CustomersService } from '../customers.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerListComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    public customerService: CustomersService
+  ) {
     //
   }
 

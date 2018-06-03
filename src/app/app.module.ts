@@ -8,6 +8,7 @@ import { VendorModule } from './vendor.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { CustomersService } from './customers.service';
 import { CustomerListComponent } from './customer-list';
 import { CustomerDetailsComponent } from './customer-details';
 
@@ -24,7 +25,9 @@ import { CustomerDetailsComponent } from './customer-details';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
   ],
-  providers: [],
+  providers: [
+    CustomersService,
+  ],
   bootstrap: [
     AppComponent,
   ],

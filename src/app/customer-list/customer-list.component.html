@@ -1,3 +1,9 @@
-<p>
-  customer-list works!
-</p>
+<mat-nav-list>
+  <mat-list-item *ngFor="let customer of customerService.customers | async">
+    <!-- <a matLine href="#">{{ customer }}</a> -->
+    <p matLine>{{ customer.firstName }} {{ customer.lastName }}</p>
+    <button mat-icon-button>
+      <mat-icon>info</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-nav-list>

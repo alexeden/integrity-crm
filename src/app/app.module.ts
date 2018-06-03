@@ -13,6 +13,7 @@ import { CustomerListComponent } from './customer-list';
 import {
   CustomerDetailsComponent,
   NoCustomerSelectedComponent,
+  PaymentsComponent,
 } from './customer-details';
 
 @NgModule({
@@ -21,6 +22,7 @@ import {
     CustomerListComponent,
     CustomerDetailsComponent,
     NoCustomerSelectedComponent,
+    PaymentsComponent,
   ],
   imports: [
     BrowserModule,

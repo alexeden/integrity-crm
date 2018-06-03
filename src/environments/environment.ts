@@ -1,9 +1,13 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyBK4cQo1t3Q8KavhVtFjsdFlre1CaNyN6U',
+    authDomain: 'integrity-crm-store.firebaseapp.com',
+    databaseURL: 'https://integrity-crm-store.firebaseio.com',
+    projectId: 'integrity-crm-store',
+    storageBucket: '',
+    messagingSenderId: '119298196630',
+  },
 };
 
 /*

@@ -14,6 +14,7 @@ import { TransactionsService } from './transactions.service';
 import { CustomerListComponent } from './customer-list';
 import {
   CustomerDetailsComponent,
+  EditTransactionComponent,
   NoCustomerSelectedComponent,
   TransactionListComponent,
 } from './customer-details';
@@ -23,6 +24,7 @@ import {
     AppComponent,
     CustomerListComponent,
     CustomerDetailsComponent,
+    EditTransactionComponent,
     NoCustomerSelectedComponent,
     TransactionListComponent,
   ],

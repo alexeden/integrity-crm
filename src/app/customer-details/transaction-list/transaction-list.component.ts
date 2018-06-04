@@ -1,7 +1,6 @@
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { Transaction } from '@crm/lib';
 import { TransactionsService } from '../../transactions.service';
 
@@ -18,7 +17,6 @@ export class TransactionListComponent implements OnInit, OnChanges {
   readonly noTransactions: Observable<boolean>;
 
   constructor(
-    private store: AngularFirestore,
     private transactionService: TransactionsService
   ) {
     this.transactions = this.transactionService.activeTransactions;

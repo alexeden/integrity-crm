@@ -1,8 +1,9 @@
 import { Observable, BehaviorSubject } from 'rxjs';
-import { switchMap, filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Transaction } from '@crm/lib';
+import { TransactionsService } from '../../transactions.service';
 
 @Component({
   selector: 'crm-transaction-list',
@@ -17,15 +18,10 @@ export class TransactionListComponent implements OnInit, OnChanges {
   readonly noTransactions: Observable<boolean>;
 
   constructor(
-    private store: AngularFirestore
+    private store: AngularFirestore,
+    private transactionService: TransactionsService
   ) {
-    this.transactions = this.cid$.pipe(
-      filter<string>(cid => cid !== null),
-      switchMap(cid => {
-        return this.store.collection<Transaction>(`customers/${cid}/transactions`).valueChanges();
-      })
-    );
-
+    this.transactions = this.transactionService.activeTransactions;
     this.noTransactions = this.transactions.pipe(map(ps => ps.length < 1));
   }
 

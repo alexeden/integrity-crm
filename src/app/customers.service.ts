@@ -1,14 +1,15 @@
-import { ConnectableObservable, from, Observable, BehaviorSubject } from 'rxjs';
-import { publishReplay, concatMap, scan, map, filter, switchMap } from 'rxjs/operators';
+import { ConnectableObservable, Observable, BehaviorSubject } from 'rxjs';
+import { publishReplay, map, filter, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
-import { Customer, Id } from '@crm/lib';
+import { Customer, Id, FirebaseUtils } from '@crm/lib';
 
 @Injectable()
 export class CustomersService {
   readonly customers: ConnectableObservable<Array<Id<Customer>>>;
   readonly selectedCustomer: Observable<Id<Customer>>;
+  readonly selectedCustomerId: Observable<string>;
   readonly customerCollection: AngularFirestoreCollection<Customer>;
 
   private readonly selectedCid$ = new BehaviorSubject<string | null>(null);
@@ -19,21 +20,7 @@ export class CustomersService {
     (window as any).customerService = this;
     this.customerCollection = this.store.collection<Customer>('customers');
 
-    this.customers = this.customerCollection.stateChanges().pipe(
-      concatMap(changes => from(changes)),
-      scan<DocumentChangeAction<Customer>, Array<Id<Customer>>>(
-        (cs, change) => {
-          const id = change.payload.doc.id;
-          const data = change.payload.doc.data();
-          const newC = { id, ...data };
-          switch (change.type) {
-            case 'added': return [ ...cs, newC ];
-            case 'removed': return cs.filter(c => c.id !== id);
-            case 'modified': return cs.map(c => c.id === id ? newC : c);
-          }
-        },
-        []
-      ),
+    this.customers = FirebaseUtils.collectionToData(this.customerCollection).pipe(
       publishReplay(1)
     ) as ConnectableObservable<Array<Id<Customer>>>;
 
@@ -46,6 +33,8 @@ export class CustomersService {
         )
       )
     );
+
+    this.selectedCustomerId = this.selectedCustomer.pipe(map(c => c.id));
 
     this.customers.connect();
   }

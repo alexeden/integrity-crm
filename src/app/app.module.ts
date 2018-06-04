@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CustomersService } from './customers.service';
+import { TransactionsService } from './transactions.service';
 import { CustomerListComponent } from './customer-list';
 import {
   CustomerDetailsComponent,
@@ -35,6 +36,7 @@ import {
   ],
   providers: [
     CustomersService,
+    TransactionsService,
   ],
   bootstrap: [
     AppComponent,

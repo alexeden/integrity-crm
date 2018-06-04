@@ -1,11 +1,11 @@
 <h2>Transactions</h2>
 
-<mat-list *ngIf="noPayments | async | not">
+<mat-list *ngIf="noTransactions | async | not">
   <mat-list-item *ngFor="let tx of transactions | async">
     <p>{{ tx.amount }}</p>
   </mat-list-item>
 </mat-list>
 
-<p *ngIf="noPayments | async">
+<p *ngIf="noTransactions | async">
   No transactions yet
 </p>

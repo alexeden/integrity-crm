@@ -4,6 +4,7 @@ import {
   CustomerDetailsComponent,
   NoCustomerSelectedComponent,
 } from './customer-details';
+import { CustomerGuard } from './customer.guard';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
   {
     path: 'customers/:cid',
     component: CustomerDetailsComponent,
+    canActivate: [CustomerGuard],
   },
   {
     path: 'customers',
@@ -24,5 +26,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [CustomerGuard],
 })
 export class AppRoutingModule { }

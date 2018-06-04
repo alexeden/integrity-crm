@@ -2,7 +2,7 @@ import { Id, Customer } from '@crm/lib';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, filter, switchMap } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { CustomersService } from '../customers.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { CustomersService } from '../customers.service';
 })
 export class CustomerDetailsComponent implements OnInit {
   cid: Observable<string>;
-  details: Observable<Id<Customer>>;
+  customer: Observable<Id<Customer>>;
 
 
   constructor(
@@ -24,9 +24,7 @@ export class CustomerDetailsComponent implements OnInit {
       filter<string>(cid => cid !== null)
     );
 
-    this.details = this.cid.pipe(
-      switchMap(cid => this.customerService.customerById(cid))
-    );
+    this.customer = this.customerService.selectedCustomer;
   }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
-import { ConnectableObservable, from, Observable } from 'rxjs';
-import { publishReplay, exhaustMap, scan, map, filter } from 'rxjs/operators';
+import { ConnectableObservable, from, Observable, BehaviorSubject } from 'rxjs';
+import { publishReplay, concatMap, scan, map, filter, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from 'angularfire2/firestore';
 
@@ -7,16 +7,20 @@ import { Customer, Id } from '@crm/lib';
 
 @Injectable()
 export class CustomersService {
-  private customerCollection: AngularFirestoreCollection<Customer>;
-  customers: ConnectableObservable<Array<Id<Customer>>>;
+  readonly customers: ConnectableObservable<Array<Id<Customer>>>;
+  readonly selectedCustomer: Observable<Id<Customer>>;
+  readonly customerCollection: AngularFirestoreCollection<Customer>;
+
+  private readonly selectedCid$ = new BehaviorSubject<string | null>(null);
 
   constructor(
     private store: AngularFirestore
   ) {
     (window as any).customerService = this;
     this.customerCollection = this.store.collection<Customer>('customers');
+
     this.customers = this.customerCollection.stateChanges().pipe(
-      exhaustMap(changes => from(changes)),
+      concatMap(changes => from(changes)),
       scan<DocumentChangeAction<Customer>, Array<Id<Customer>>>(
         (cs, change) => {
           const id = change.payload.doc.id;
@@ -32,16 +36,22 @@ export class CustomersService {
       ),
       publishReplay(1)
     ) as ConnectableObservable<Array<Id<Customer>>>;
-    // this.customerCollection.valueChanges().pipe(
-    // ) as ConnectableObservable<Customer[]>;
+
+    this.selectedCustomer = this.selectedCid$.pipe(
+      filter<string>(cid => typeof cid === 'string'),
+      switchMap(cid =>
+        this.customers.pipe(
+          map(cs => cs.find(({ id }) => id === cid)),
+          filter<Id<Customer>>(c => !!c)
+        )
+      )
+    );
 
     this.customers.connect();
   }
 
-  customerById(cid: string): Observable<Id<Customer>> {
-    return this.customers.pipe(
-      map(cs => cs.find(({ id }) => id === cid)),
-      filter<Id<Customer>>(c => !!c)
-    );
+  setSelectedCid(cid: string) {
+    // this.customerCollection.doc(cid).ref.get()
+    this.selectedCid$.next(cid);
   }
 }

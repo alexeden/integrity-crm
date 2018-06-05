@@ -1,3 +1,4 @@
 <h1>{{ customer | async | prop:'firstName' }} {{ customer | async | prop:'lastName' }}</h1>
 <code>{{ customerService.selectedCid | async }}</code>
-<crm-transaction-list [cid]="cid | async"></crm-transaction-list>
+<crm-transaction-list [cid]="cid | async">
+</crm-transaction-list>

@@ -1,9 +1,9 @@
-import { Id, Customer, Transaction } from '@crm/lib';
+import { Customer, Transaction } from '@crm/lib';
 import { tag } from '@crm/shared';
 import { Observable, Subject } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, switchMap } from 'rxjs/operators';
 import { CustomersService } from '../customers.service';
 import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
@@ -16,7 +16,7 @@ import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfir
 export class CustomerDetailsComponent implements OnInit, OnDestroy {
 
   cid: Observable<string>;
-  customer: Observable<Id<Customer>>;
+  customer: Observable<Customer>;
   customerDocument: Observable<AngularFirestoreDocument<Customer>>;
   transactionCollection: Observable<AngularFirestoreCollection<Transaction>>;
 
@@ -28,8 +28,7 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
   ) {
     this.cid = this.route.paramMap.pipe(
       map(params => params.get('cid')),
-      filter<string>(cid => cid !== null),
-      tag(`cid`)
+      filter<string>(cid => cid !== null)
     );
 
     this.customerDocument = this.cid.pipe(
@@ -40,7 +39,11 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
       map(doc => doc.collection('transactions'))
     );
 
-    this.customer = this.customerService.selectedCustomer;
+    this.customer = this.customerDocument.pipe(
+      switchMap(doc => doc.valueChanges()),
+      tag('customer document value'),
+      filter<Customer>(c => !!c)
+    );
   }
 
   ngOnInit() {

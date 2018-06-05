@@ -3,7 +3,7 @@ import { publishReplay, map, filter, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
-import { Customer, Id, FirebaseUtils } from '@crm/lib';
+import { Customer, Id, FirebaseUtils, Transaction } from '@crm/lib';
 
 @Injectable()
 export class CustomersService {
@@ -42,5 +42,11 @@ export class CustomersService {
   setSelectedCid(cid: string) {
     // this.customerCollection.doc(cid).ref.get()
     this.selectedCid$.next(cid);
+  }
+
+  updateTransaction(cid: string, tid: string, tx: Transaction) {
+    return this.customerCollection
+      .doc<Transaction>(`${cid}/transactions/${tid}`)
+      .set(tx, { merge: true });
   }
 }

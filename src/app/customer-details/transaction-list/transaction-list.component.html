@@ -1,12 +1,5 @@
 <h2>Transactions</h2>
 
-<mat-list *ngIf="noTransactions | async | not">
-  <mat-list-item *ngFor="let tx of transactions | async">
-    <p>{{ tx.type }}</p>
-    <p>{{ tx.amount }}</p>
-  </mat-list-item>
-</mat-list>
-
 <mat-accordion>
   <mat-expansion-panel
     *ngFor="let tx of transactions | async"
@@ -17,14 +10,20 @@
         {{ tx.amount | currency }}
       </mat-panel-title>
       <mat-panel-description>
-        {{ tx.timestamp.seconds | date }}
-        {{ tx.timestamp.seconds }}
+        {{ tx.timestamp | date }}
       </mat-panel-description>
     </mat-expansion-panel-header>
 
     <crm-edit-transaction #editTransaction [transaction]="tx">
     </crm-edit-transaction>
-    <button mat-raised-button color="primary" [disabled]="!editTransaction.valid">Save</button>
+    <button
+      *ngIf="editTransaction.form.dirty"
+      [disabled]="!editTransaction.valid"
+      (click)="updateTransaction(tx.id, editTransaction.value)"
+      mat-raised-button
+      color="primary">
+      Save
+    </button>
 
   </mat-expansion-panel>
 </mat-accordion>

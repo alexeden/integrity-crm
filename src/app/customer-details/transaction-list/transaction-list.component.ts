@@ -2,8 +2,8 @@ import { AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { map, switchMap, filter } from 'rxjs/operators';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
-import { tag } from '@crm/shared';
-import { Transaction } from '@crm/lib';
+// import { tag } from '@crm/shared';
+import { Transaction, FirebaseUtils, Id } from '@crm/lib';
 import { CustomersService } from '../../customers.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class TransactionListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() readonly cid: string = '';
   private readonly cid$ = new BehaviorSubject<string | null>(null);
   readonly transactionCollection: Observable<AngularFirestoreCollection<Transaction>>;
-  readonly transactions: Observable<Transaction[]>;
+  readonly transactions: Observable<Array<Id<Transaction>>>;
   readonly noTransactions: Observable<boolean>;
   private readonly unsubscribe = new Subject<any>();
 
@@ -23,18 +23,13 @@ export class TransactionListComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private customerService: CustomersService
   ) {
-
-    // this.transactionService.activeTransactions;
     this.transactionCollection = this.cid$.pipe(
       filter<string>(cid => typeof cid === 'string'),
-      map(cid => this.customerService.customerCollection.doc(cid).collection<Transaction>('transactions')),
-      tag('transaction collection')
+      map(cid => this.customerService.customerCollection.doc(cid).collection<Transaction>('transactions'))
     );
 
-
-
     this.transactions = this.transactionCollection.pipe(
-      switchMap(collection => collection.valueChanges())
+      switchMap(FirebaseUtils.collectionToData)
     );
 
     this.noTransactions = this.transactions.pipe(map(ps => ps.length < 1));
@@ -49,6 +44,12 @@ export class TransactionListComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     //
+  }
+
+  async updateTransaction(txid: string, tx: Transaction) {
+    console.log(`updating transaction ${txid}: `, tx);
+    const result = await this.customerService.updateTransaction(this.cid, txid, tx);
+    console.log('result: ', result);
   }
 
   ngOnDestroy() {

@@ -17,8 +17,15 @@
     <crm-edit-transaction #editTransaction [transaction]="tx">
     </crm-edit-transaction>
 
-    <mat-action-row *ngIf="editTransaction.form.dirty">
+    <mat-action-row>
       <button
+        (click)="deleteTransaction(tx.id)"
+        mat-button
+        color="warn">
+        Delete
+      </button>
+      <button
+        *ngIf="editTransaction.form.dirty"
         [disabled]="!editTransaction.valid"
         (click)="updateTransaction(tx.id, editTransaction.value)"
         mat-raised-button

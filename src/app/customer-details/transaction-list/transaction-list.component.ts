@@ -50,6 +50,11 @@ export class TransactionListComponent implements OnChanges, OnDestroy {
     this.notifier.open(`✅ Transaction was created`);
   }
 
+  async deleteTransaction(txid: string) {
+    await this.customerService.deleteTransaction(this.cid, txid);
+    this.notifier.open(`❎ Transaction deleted`);
+  }
+
   ngOnDestroy() {
     console.log(`TransactionListComponent is being DESTROYED`);
     this.unsubscribe.next('Close all the streams');

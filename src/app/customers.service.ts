@@ -30,4 +30,8 @@ export class CustomersService {
       .doc<Transaction>(`${cid}/transactions/${txid}`)
       .set(tx, { merge: true });
   }
+
+  deleteTransaction(cid: string, txid: string) {
+    return this.customerCollection.doc(`${cid}/transactions/${txid}`).delete();
+  }
 }

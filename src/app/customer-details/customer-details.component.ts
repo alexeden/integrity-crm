@@ -23,7 +23,7 @@ export class CustomerDetailsComponent implements OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private customerService: CustomersService
+    public customerService: CustomersService
   ) {
     this.cid = this.route.paramMap.pipe(
       map(params => params.get('cid')),

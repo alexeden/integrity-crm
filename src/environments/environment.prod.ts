@@ -1,7 +1,6 @@
-/* Still need firebase credentials so extend the non-prod environment */
-import { environment as devEnvironment } from './environment';
+import { firebaseConfig } from './firebase.config';
 
 export const environment = {
-  ...devEnvironment,
+  firebase: firebaseConfig,
   production: true,
 };

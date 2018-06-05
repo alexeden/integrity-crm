@@ -7,8 +7,32 @@
   </mat-list-item>
 </mat-list>
 
+<mat-accordion>
+  <mat-expansion-panel
+    *ngFor="let tx of transactions | async"
+    hideToggle="true">
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ tx.amount | currency }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ tx.timestamp.seconds | date }}
+        {{ tx.timestamp.seconds }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <crm-edit-transaction #editTransaction [transaction]="tx">
+    </crm-edit-transaction>
+    <button mat-raised-button color="primary" [disabled]="!editTransaction.valid">Save</button>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
 <p *ngIf="noTransactions | async">
   No transactions yet
 </p>
 
-<crm-edit-transaction></crm-edit-transaction>
+<crm-edit-transaction
+  #transaction>
+</crm-edit-transaction>

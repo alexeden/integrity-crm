@@ -15,7 +15,6 @@ export class CustomerGuard implements CanActivate {
     const docSnapshot = await this.customerService.customerCollection.doc(cid || '').ref.get();
 
     if (docSnapshot.exists) {
-      console.log('it exists!');
       this.customerService.setSelectedCid(cid!);
       return true;
     }

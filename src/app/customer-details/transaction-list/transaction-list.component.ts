@@ -3,7 +3,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { map, switchMap, filter } from 'rxjs/operators';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { tag } from '@crm/shared';
-import { Transaction, Customer } from '@crm/lib';
+import { Transaction } from '@crm/lib';
 import { CustomersService } from '../../customers.service';
 
 @Component({

@@ -23,7 +23,7 @@ export interface Customer {
 }
 
 export enum TransactionType {
-  Expense = 'expense',
+  Charge = 'charge',
   Payment = 'payment',
 }
 

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
@@ -30,6 +31,7 @@ import {
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     VendorModule,
     SharedModule,
     AppRoutingModule,

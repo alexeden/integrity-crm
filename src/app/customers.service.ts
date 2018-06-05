@@ -1,5 +1,5 @@
-import { ConnectableObservable, Observable, BehaviorSubject } from 'rxjs';
-import { publishReplay, map, filter, switchMap } from 'rxjs/operators';
+import { ConnectableObservable } from 'rxjs';
+import { publishReplay } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
@@ -8,11 +8,7 @@ import { Customer, Id, FirebaseUtils, Transaction } from '@crm/lib';
 @Injectable()
 export class CustomersService {
   readonly customers: ConnectableObservable<Array<Id<Customer>>>;
-  readonly selectedCustomer: Observable<Id<Customer>>;
-  readonly selectedCustomerId: Observable<string>;
   readonly customerCollection: AngularFirestoreCollection<Customer>;
-
-  private readonly selectedCid$ = new BehaviorSubject<string | null>(null);
 
   constructor(
     private store: AngularFirestore
@@ -24,29 +20,14 @@ export class CustomersService {
       publishReplay(1)
     ) as ConnectableObservable<Array<Id<Customer>>>;
 
-    this.selectedCustomer = this.selectedCid$.pipe(
-      filter<string>(cid => typeof cid === 'string'),
-      switchMap(cid =>
-        this.customers.pipe(
-          map(cs => cs.find(({ id }) => id === cid)),
-          filter<Id<Customer>>(c => !!c)
-        )
-      )
-    );
-
-    this.selectedCustomerId = this.selectedCustomer.pipe(map(c => c.id));
-
     this.customers.connect();
   }
 
-  setSelectedCid(cid: string) {
-    // this.customerCollection.doc(cid).ref.get()
-    this.selectedCid$.next(cid);
-  }
+  updateTransaction(cid: string, tx: Transaction, unsafeTxid?: string) {
+    const txid = typeof unsafeTxid === 'string' ? unsafeTxid : this.store.createId();
 
-  updateTransaction(cid: string, tid: string, tx: Transaction) {
     return this.customerCollection
-      .doc<Transaction>(`${cid}/transactions/${tid}`)
+      .doc<Transaction>(`${cid}/transactions/${txid}`)
       .set(tx, { merge: true });
   }
 }

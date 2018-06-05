@@ -10,12 +10,10 @@ export class CustomerGuard implements CanActivate {
   ) {}
 
   async canActivate(route: ActivatedRouteSnapshot) {
-
     const cid = route.paramMap.get('cid');
     const docSnapshot = await this.customerService.customerCollection.doc(cid || '').ref.get();
 
     if (docSnapshot.exists) {
-      this.customerService.setSelectedCid(cid!);
       return true;
     }
     else {

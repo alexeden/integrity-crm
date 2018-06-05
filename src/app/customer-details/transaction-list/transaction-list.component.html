@@ -16,14 +16,16 @@
 
     <crm-edit-transaction #editTransaction [transaction]="tx">
     </crm-edit-transaction>
-    <button
-      *ngIf="editTransaction.form.dirty"
-      [disabled]="!editTransaction.valid"
-      (click)="updateTransaction(tx.id, editTransaction.value)"
-      mat-raised-button
-      color="primary">
-      Save
-    </button>
+
+    <mat-action-row *ngIf="editTransaction.form.dirty">
+      <button
+        [disabled]="!editTransaction.valid"
+        (click)="updateTransaction(tx.id, editTransaction.value)"
+        mat-raised-button
+        color="primary">
+        Save
+      </button>
+    </mat-action-row>
 
   </mat-expansion-panel>
 </mat-accordion>
@@ -32,6 +34,12 @@
   No transactions yet
 </p>
 
-<crm-edit-transaction
-  #transaction>
+<crm-edit-transaction #newTransaction>
 </crm-edit-transaction>
+<button
+  [disabled]="!newTransaction.valid"
+  (click)="addTransaction(newTransaction.value)"
+  mat-raised-button
+  color="primary">
+  Create
+</button>

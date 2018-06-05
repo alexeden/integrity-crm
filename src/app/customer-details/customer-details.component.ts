@@ -1,19 +1,18 @@
-import { Customer, Transaction } from '@crm/lib';
-import { tag } from '@crm/shared';
 import { Observable, Subject } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, filter, switchMap } from 'rxjs/operators';
+import { Customer, Transaction } from '@crm/lib';
+import { tag } from '@crm/shared';
 import { CustomersService } from '../customers.service';
-import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-
 
 @Component({
   selector: 'crm-customer-details',
   templateUrl: './customer-details.component.html',
   styleUrls: ['./customer-details.component.scss'],
 })
-export class CustomerDetailsComponent implements OnInit, OnDestroy {
+export class CustomerDetailsComponent implements OnDestroy {
 
   cid: Observable<string>;
   customer: Observable<Customer>;
@@ -44,11 +43,6 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
       tag('customer document value'),
       filter<Customer>(c => !!c)
     );
-  }
-
-  ngOnInit() {
-    console.log(`CustomerDetailsComponent is INIT`);
-    //
   }
 
   ngOnDestroy() {

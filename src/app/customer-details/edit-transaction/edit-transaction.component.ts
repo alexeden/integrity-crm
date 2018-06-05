@@ -1,5 +1,5 @@
 import { Transaction } from '@crm/lib';
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './edit-transaction.component.html',
   styleUrls: ['./edit-transaction.component.scss'],
 })
-export class EditTransactionComponent implements OnInit, OnChanges {
+export class EditTransactionComponent implements OnChanges {
   readonly form: FormGroup;
   @Input() transaction: Partial<Transaction> = {};
 
@@ -42,9 +42,4 @@ export class EditTransactionComponent implements OnInit, OnChanges {
       });
     }
   }
-
-  ngOnInit() {
-    //
-  }
-
 }

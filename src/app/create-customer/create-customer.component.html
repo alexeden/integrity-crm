@@ -1,0 +1,10 @@
+<crm-transaction-form #txForm>
+</crm-transaction-form>
+
+<button
+  [disabled]="!txForm.form.valid"
+  mat-raised-button
+  (click)="saveNewTransaction(txForm.value)"
+  color="primary">
+  Save
+</button>

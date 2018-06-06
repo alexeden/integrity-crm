@@ -10,10 +10,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CustomersService } from './customers.service';
+import { CreateCustomerComponent } from './create-customer';
+import { CreateTransactionComponent } from './create-transaction';
 import { CustomerListComponent } from './customer-list';
 import {
   CustomerDetailsComponent,
-  CreateTransactionComponent,
   NoCustomerSelectedComponent,
   TransactionListComponent,
 } from './customer-details';
@@ -21,6 +22,7 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
+    CreateCustomerComponent,
     CustomerListComponent,
     CustomerDetailsComponent,
     CreateTransactionComponent,

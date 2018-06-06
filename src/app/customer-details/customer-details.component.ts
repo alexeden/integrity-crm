@@ -1,4 +1,3 @@
-import { CreateTransactionComponent } from './create-transaction/create-transaction.component';
 import { Observable, Subject, BehaviorSubject, from } from 'rxjs';
 import { map, filter, switchMap, takeUntil, tap, take, withLatestFrom } from 'rxjs/operators';
 import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
@@ -9,7 +8,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Customer, Transaction } from '@crm/lib';
 import { tag } from '@crm/shared';
 import { CustomersService } from '../customers.service';
-import { CreateTransactionComponent } from './create-transaction';
+import { CreateTransactionComponent } from '@crm/app/create-transaction';
 
 @Component({
   selector: 'crm-customer-details',
@@ -32,7 +31,7 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    public customerService: CustomersService,
+    public customerService: CustomersService
   ) {
     (window as any).customerDetailsComponent = this;
     this.cid = this.route.paramMap.pipe(
@@ -68,7 +67,6 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
 
   createTransaction() {
     const dialogRef = this.dialog.open(CreateTransactionComponent);
-    console.log('dialogRef: ', (window as any).dialogRef = dialogRef);
 
     dialogRef.componentInstance.newTransaction
       .pipe(

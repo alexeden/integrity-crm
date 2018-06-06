@@ -1,6 +1,15 @@
 <h1>{{ customer | async | prop:'firstName' }} {{ customer | async | prop:'lastName' }}</h1>
 
 <mat-card>
+  <h2>Name</h2>
+  <crm-name-form [model]="customer | async | prop:'name'">
+  </crm-name-form>
+
+  <h2>Contact</h2>
+  <crm-contact-form [model]="customer | async | prop:'contact'">
+  </crm-contact-form>
+
+  <h2>Address</h2>
   <crm-address-form [model]="customer | async | prop:'address'">
   </crm-address-form>
 </mat-card>

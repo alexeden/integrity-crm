@@ -24,8 +24,8 @@ export class AddressFormComponent implements OnInit, OnChanges, OnDestroy {
   ) {
     (window as any).addressFormComponent = this;
     this.form = this.fb.group({
-      line1: this.fb.control(null, [Validators.required, Validators.minLength(3)]),
-      line2: null,
+      addressLine1: this.fb.control(null, [Validators.required, Validators.minLength(3)]),
+      addressLine2: null,
       city: this.fb.control(null, [Validators.required, Validators.minLength(2)]),
       state: this.fb.control(null, [Validators.required]),
       zip: this.fb.control(null, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]),

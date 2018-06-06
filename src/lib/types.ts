@@ -3,8 +3,8 @@ import { Transaction } from './types';
 export type Id<T> = T & { id: string };
 
 export interface Address {
-  line1: string;
-  line2?: string;
+  addressLine1: string;
+  addressLine2?: string;
   city: string;
   state: string;
   zip: string;

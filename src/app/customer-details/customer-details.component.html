@@ -1,3 +1,10 @@
 <h1>{{ customer | async | prop:'firstName' }} {{ customer | async | prop:'lastName' }}</h1>
+
+<mat-card>
+  <crm-address-form [model]="customer | async | prop:'address'">
+  </crm-address-form>
+</mat-card>
+
+<h1>Transactions</h1>
 <crm-transaction-list [cid]="cid | async">
 </crm-transaction-list>

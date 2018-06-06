@@ -12,16 +12,19 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-  }
 
-  mat-sidenav-content {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-  }
+    mat-sidenav {
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-  .mat-drawer {
-    position: relative;
+    mat-sidenav-content {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      position: relative;
+    }
   }
-
 }

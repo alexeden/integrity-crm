@@ -5,3 +5,15 @@
     <p matLine>{{ customer.name?.firstName }} {{ customer.name?.lastName }}</p>
   </mat-list-item>
 </mat-nav-list>
+
+<div fxLayout="column">
+  <button
+    (click)="createNewCustomer()"
+    mat-button
+    color="primary"
+    fxLayout="row"
+    fxLayoutAlign="center baseline"
+    class="new-customer-button">
+    <mat-icon>add</mat-icon>&nbsp;New Customer
+  </button>
+</div>

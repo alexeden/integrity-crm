@@ -30,6 +30,7 @@ import {
     TransactionListComponent,
   ],
   entryComponents: [
+    CreateCustomerComponent,
     CreateTransactionComponent,
   ],
   imports: [

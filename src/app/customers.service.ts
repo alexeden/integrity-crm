@@ -23,6 +23,11 @@ export class CustomersService {
     this.customers.connect();
   }
 
+  createCustomer(customer: Customer) {
+    console.log('creating customer!');
+    return this.customerCollection.add(customer);
+  }
+
   updateTransaction(cid: string, tx: Transaction, unsafeTxid?: string) {
     const txid = typeof unsafeTxid === 'string' ? unsafeTxid : this.store.createId();
 

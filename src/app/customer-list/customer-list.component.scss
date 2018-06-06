@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  .new-customer-button {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}

@@ -1,6 +1,6 @@
 import { CreateTransactionComponent } from './create-transaction/create-transaction.component';
 import { Observable, Subject, BehaviorSubject, from } from 'rxjs';
-import { map, filter, switchMap, takeUntil, tap, take } from 'rxjs/operators';
+import { map, filter, switchMap, takeUntil, tap, take, withLatestFrom } from 'rxjs/operators';
 import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -68,8 +68,18 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
 
   createTransaction() {
     const dialogRef = this.dialog.open(CreateTransactionComponent);
-
     console.log('dialogRef: ', (window as any).dialogRef = dialogRef);
+
+    dialogRef.componentInstance.newTransaction
+      .pipe(
+        take(1),
+        withLatestFrom(this.cid, (tx, cid) => ({ tx, cid }))
+      )
+      .subscribe(async ({ cid, tx }) => {
+        await this.customerService.updateTransaction(cid, tx);
+        dialogRef.close();
+      });
+
   }
 
   updateCustomer<K extends keyof Customer>(prop: K, value: Customer[K]) {

@@ -22,7 +22,12 @@ export class TransactionFormComponent implements OnInit, OnChanges, OnDestroy {
   ) {
     (window as any).transactionFormComponent = this;
     this.form = this.fb.group({
-      amount: this.fb.control(0, [Validators.required]),
+      amount: this.fb.control(0, [
+        Validators.required,
+        control => typeof control.value === 'number' && control.value > 0
+          ? null
+          : { invalidAmount: 'Must be a number greater than zero' },
+      ]),
       type: ['payment'],
       timestamp: [new Date()],
     });

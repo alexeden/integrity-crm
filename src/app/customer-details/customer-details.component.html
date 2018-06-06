@@ -1,6 +1,6 @@
 <div class="customer-banner mat-typography">
+  <h3 class="customer-banner__name">{{ fullName | async }}</h3>
   <h1 class="customer-banner__balance">Balance $0.00</h1>
-  <h2 class="customer-banner__name">{{ fullName | async }}</h2>
 </div>
 
 <div>
@@ -59,10 +59,8 @@
         <span>Transactions</span>
       </ng-template>
       <ng-template matTabContent>
-        <mat-card>
-          <crm-transaction-list [cid]="cid | async">
-          </crm-transaction-list>
-        </mat-card>
+        <crm-transaction-list [cid]="cid | async">
+        </crm-transaction-list>
       </ng-template>
     </mat-tab>
 

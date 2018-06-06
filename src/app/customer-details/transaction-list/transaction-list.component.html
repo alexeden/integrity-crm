@@ -4,16 +4,19 @@
     hideToggle="true">
 
     <mat-expansion-panel-header>
-      <mat-chip-list>
-        <mat-chip *ngIf="tx.type === 'charge'" color="warn" selected="true">Charge</mat-chip>
-        <mat-chip *ngIf="tx.type === 'payment'" color="accent" selected="true">Payment</mat-chip>
-      </mat-chip-list>
-      <mat-panel-title>
-        {{ tx.amount | currency }}
-      </mat-panel-title>
-      <mat-panel-description>
-        {{ tx.timestamp | date }}
-      </mat-panel-description>
+      <div fxLayout="row" fxLayoutAlign="space-between baseline">
+        <p fxFill="35">
+          {{ tx.amount | currency }}
+        </p>
+        <p fxFill="35">
+          {{ tx.timestamp | date }}
+        </p>
+
+        <mat-chip-list fxFill="30">
+          <mat-chip *ngIf="tx.type === 'charge'" color="warn" selected="true">Charge</mat-chip>
+          <mat-chip *ngIf="tx.type === 'payment'" color="accent" selected="true">Payment</mat-chip>
+        </mat-chip-list>
+      </div>
     </mat-expansion-panel-header>
 
     <crm-transaction-form #editTransaction [model]="tx">

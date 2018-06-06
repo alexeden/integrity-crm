@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { VendorModule } from '../vendor/vendor.module';
+import { AddressFormComponent } from './address-form';
 import { TransactionFormComponent } from './transaction-form';
 
 @NgModule({
@@ -10,9 +11,11 @@ import { TransactionFormComponent } from './transaction-form';
     VendorModule,
   ],
   exports: [
+    AddressFormComponent,
     TransactionFormComponent,
   ],
   declarations: [
+    AddressFormComponent,
     TransactionFormComponent,
   ],
 })

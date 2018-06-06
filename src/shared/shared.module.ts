@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
-import { NotPipe } from './not.pipe';
-import { PropertyPipe } from './prop.pipe';
+import { VendorModule } from './vendor/vendor.module';
+import { SharedFormsModule } from './forms/forms.module';
+import { SharedPipesModule } from './pipes/pipes.module';
 
 @NgModule({
   exports: [
-    NotPipe,
-    PropertyPipe,
-  ],
-  declarations: [
-    NotPipe,
-    PropertyPipe,
+    VendorModule,
+    SharedFormsModule,
+    SharedPipesModule,
   ],
 })
 export class SharedModule {}

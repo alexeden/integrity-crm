@@ -6,7 +6,6 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { environment } from '@crm/environments/environment';
 import { SharedModule } from '@crm/shared';
-import { VendorModule } from './vendor.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -31,7 +30,6 @@ import {
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    VendorModule,
     SharedModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),

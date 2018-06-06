@@ -1,0 +1,14 @@
+:host {
+  mat-expansion-panel-header ::ng-deep.mat-content {
+    align-items: center;
+    justify-content: space-between;
+
+    & > * {
+      flex-grow: 0;
+    }
+  }
+
+  mat-action-row {
+    justify-content: space-between;
+  }
+}

@@ -5,4 +5,23 @@
   ::ng-deep.mat-tab-label-content mat-icon {
     margin-right: 6px;
   }
+
+  .customer-banner {
+    // background-color: #ae52d4;
+    background-color: #4a0072;
+    // background-color: #7b1fa2;
+    color: white;
+    padding: 64px 24px 36px;
+
+    &__name {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 300;
+    }
+
+    &__balance {
+      margin: 0;
+      font-weight: 500;
+    }
+  }
 }

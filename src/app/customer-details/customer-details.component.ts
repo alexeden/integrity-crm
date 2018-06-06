@@ -19,6 +19,7 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
   customer: Observable<Customer>;
   customerDocument: Observable<AngularFirestoreDocument<Customer>>;
   transactionCollection: Observable<AngularFirestoreCollection<Transaction>>;
+  fullName: Observable<string>;
 
   readonly selectedTabIndex = new BehaviorSubject<number>(0);
   private readonly unsubscribe = new Subject<any>();
@@ -45,6 +46,10 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
     this.customer = this.customerDocument.pipe(
       switchMap(doc => doc.valueChanges()),
       filter<Customer>(c => !!c)
+    );
+
+    this.fullName = this.customer.pipe(
+      map(({ name }) => `${name.firstName} ${name.lastName}`)
     );
   }
 

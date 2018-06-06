@@ -1,17 +1,21 @@
-<h1>{{ customer | async | prop:'firstName' }} {{ customer | async | prop:'lastName' }}</h1>
+<div class="customer-banner mat-typography">
+  <h1 class="customer-banner__balance">Balance $0.00</h1>
+  <h2 class="customer-banner__name">{{ fullName | async }}</h2>
+</div>
 
 <div>
   <mat-tab-group
-  (selectedTabChange)="tabChanged($event)"
-  [selectedIndex]="selectedTabIndex | async"
-  [dynamicHeight]="true"
-  class="demo-tab-group">
+    backgroundColor="primary"
+    (selectedTabChange)="tabChanged($event)"
+    [selectedIndex]="selectedTabIndex | async"
+    [dynamicHeight]="true"
+    class="demo-tab-group">
 
-  <mat-tab label="Name">
-    <ng-template mat-tab-label>
-      <mat-icon>person</mat-icon>
-      <span>Personal</span>
-    </ng-template>
+    <mat-tab label="Name">
+      <ng-template mat-tab-label>
+        <mat-icon>person</mat-icon>
+        <span>Personal</span>
+      </ng-template>
       <ng-template matTabContent>
         <mat-card>
           <h2>Name</h2>
@@ -56,7 +60,6 @@
       </ng-template>
       <ng-template matTabContent>
         <mat-card>
-          <h2>Transactions</h2>
           <crm-transaction-list [cid]="cid | async">
           </crm-transaction-list>
         </mat-card>

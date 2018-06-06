@@ -2,6 +2,6 @@
   <mat-list-item
     *ngFor="let customer of customerService.customers | async"
     routerLink="/customers/{{customer.id}}">
-    <p matLine>{{ customer.firstName }} {{ customer.lastName }}</p>
+    <p matLine>{{ customer.name?.firstName }} {{ customer.name?.lastName }}</p>
   </mat-list-item>
 </mat-nav-list>

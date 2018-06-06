@@ -13,6 +13,7 @@ import { filter, takeUntil, map } from 'rxjs/operators';
 })
 export class AddressFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() model: Partial<CustomerAddress> = {};
+  @Input() disabled = false;
   @Output() changed = new Subject<CustomerAddress>();
 
   readonly form: FormGroup;
@@ -46,9 +47,12 @@ export class AddressFormComponent implements OnInit, OnChanges, OnDestroy {
     return this.form.value;
   }
 
-  ngOnChanges({ model: { currentValue } }: SimpleChanges) {
-    if (!!currentValue) {
-      this.form.patchValue(currentValue);
+  ngOnChanges({ model, disabled }: SimpleChanges) {
+    if (!!model && !!model.currentValue) {
+      this.form.patchValue(model.currentValue);
+    }
+    if (!!disabled && typeof disabled.currentValue === 'boolean') {
+      this.form[disabled.currentValue ? 'disable' : 'enable']();
     }
   }
 

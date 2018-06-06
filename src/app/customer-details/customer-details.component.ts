@@ -1,5 +1,6 @@
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { map, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { tag } from './../../shared/tag.operator';
+import { Observable, Subject, BehaviorSubject, from } from 'rxjs';
+import { map, filter, switchMap, takeUntil, tap, take } from 'rxjs/operators';
 import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,6 +23,7 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
   fullName: Observable<string>;
 
   readonly selectedTabIndex = new BehaviorSubject<number>(0);
+  readonly updating = new BehaviorSubject<boolean>(false);
   private readonly unsubscribe = new Subject<any>();
 
   constructor(
@@ -59,6 +61,18 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
       map(query => +(query.get('tab') || 0))
     )
     .subscribe(this.selectedTabIndex);
+  }
+
+  updateCustomer<K extends keyof Customer>(prop: K, value: Customer[K]) {
+    console.log('updating customer, ', prop, value);
+    this.customerDocument.pipe(
+      take(1),
+      tap(() => this.updating.next(true)),
+      switchMap(doc => from(doc.update({ [prop]: value }))),
+      tap(() => this.updating.next(false)),
+      tag('update result')
+    )
+    .subscribe();
   }
 
 

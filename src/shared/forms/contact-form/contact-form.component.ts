@@ -12,6 +12,7 @@ import { filter, takeUntil, map } from 'rxjs/operators';
 })
 export class ContactFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() model: Partial<CustomerContact> = {};
+  @Input() disabled = false;
   @Output() changed = new Subject<CustomerContact>();
 
   readonly form: FormGroup;
@@ -40,9 +41,12 @@ export class ContactFormComponent implements OnInit, OnChanges, OnDestroy {
     return this.form.value;
   }
 
-  ngOnChanges({ model: { currentValue } }: SimpleChanges) {
-    if (!!currentValue) {
-      this.form.patchValue(currentValue);
+  ngOnChanges({ model, disabled }: SimpleChanges) {
+    if (!!model && !!model.currentValue) {
+      this.form.patchValue(model.currentValue);
+    }
+    if (!!disabled && typeof disabled.currentValue === 'boolean') {
+      this.form[disabled.currentValue ? 'disable' : 'enable']();
     }
   }
 

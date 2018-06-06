@@ -1,19 +1,63 @@
 <h1>{{ customer | async | prop:'firstName' }} {{ customer | async | prop:'lastName' }}</h1>
 
-<mat-card>
-  <h2>Name</h2>
-  <crm-name-form [model]="customer | async | prop:'name'">
-  </crm-name-form>
+<div>
+  <mat-tab-group class="demo-tab-group">
 
-  <h2>Contact</h2>
-  <crm-contact-form [model]="customer | async | prop:'contact'">
-  </crm-contact-form>
+    <mat-tab label="Name">
+      <ng-template mat-tab-label>
+        <mat-icon>person</mat-icon>
+        <span>Personal</span>
+      </ng-template>
+      <ng-template matTabContent>
+        <mat-card>
+          <h2>Name</h2>
+          <crm-name-form [model]="customer | async | prop:'name'">
+          </crm-name-form>
+        </mat-card>
+      </ng-template>
+    </mat-tab>
 
-  <h2>Address</h2>
-  <crm-address-form [model]="customer | async | prop:'address'">
-  </crm-address-form>
-</mat-card>
+    <mat-tab label="Contact">
+      <ng-template mat-tab-label>
+        <mat-icon>phone</mat-icon>
+        <span>Contact</span>
+      </ng-template>
+      <ng-template matTabContent>
+        <mat-card>
+          <h2>Contact</h2>
+          <crm-contact-form [model]="customer | async | prop:'contact'">
+          </crm-contact-form>
+        </mat-card>
+      </ng-template>
+    </mat-tab>
 
-<h1>Transactions</h1>
-<crm-transaction-list [cid]="cid | async">
-</crm-transaction-list>
+    <mat-tab label="Address">
+      <ng-template mat-tab-label>
+        <mat-icon>location_on</mat-icon>
+        <span>Address</span>
+      </ng-template>
+      <ng-template matTabContent>
+        <mat-card>
+          <h2>Address</h2>
+          <crm-address-form [model]="customer | async | prop:'address'">
+          </crm-address-form>
+        </mat-card>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab label="Transactions">
+      <ng-template mat-tab-label>
+        <mat-icon>payment</mat-icon>
+        <span>Transactions</span>
+      </ng-template>
+      <ng-template matTabContent>
+        <mat-card>
+          <h2>Transactions</h2>
+          <crm-transaction-list [cid]="cid | async">
+          </crm-transaction-list>
+        </mat-card>
+      </ng-template>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>

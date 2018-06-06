@@ -6,6 +6,10 @@
     hideToggle="true">
 
     <mat-expansion-panel-header>
+      <mat-chip-list>
+        <mat-chip *ngIf="tx.type === 'charge'" color="warn" selected="true">Charge</mat-chip>
+        <mat-chip *ngIf="tx.type === 'payment'" color="accent" selected="true">Payment</mat-chip>
+      </mat-chip-list>
       <mat-panel-title>
         {{ tx.amount | currency }}
       </mat-panel-title>
@@ -14,19 +18,17 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <crm-edit-transaction #editTransaction [transaction]="tx">
-    </crm-edit-transaction>
+    <crm-transaction-form #editTransaction [model]="tx">
+    </crm-transaction-form>
 
     <mat-action-row>
       <button
         (click)="deleteTransaction(tx.id)"
-        mat-button
-        color="warn">
-        Delete
+        mat-icon-button>
+        <mat-icon aria-label="Delete this transaction">delete</mat-icon>
       </button>
       <button
-        *ngIf="editTransaction.form.dirty"
-        [disabled]="!editTransaction.valid"
+        [disabled]="!editTransaction.form.valid || !editTransaction.form.dirty"
         (click)="updateTransaction(tx.id, editTransaction.value)"
         mat-raised-button
         color="primary">

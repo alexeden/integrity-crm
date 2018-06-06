@@ -9,6 +9,9 @@ import { TransactionFormComponent } from './transaction-form';
     ReactiveFormsModule,
     VendorModule,
   ],
+  exports: [
+    TransactionFormComponent,
+  ],
   declarations: [
     TransactionFormComponent,
   ],

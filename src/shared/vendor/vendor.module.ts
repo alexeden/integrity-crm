@@ -20,6 +20,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @NgModule({
   exports: [
@@ -43,6 +45,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSidenavModule,
     MatSnackBarModule,
     MatTabsModule,
+    MatTooltipModule,
   ],
 })
 export class VendorModule {}

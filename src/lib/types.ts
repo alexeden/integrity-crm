@@ -2,7 +2,7 @@ import { Transaction } from './types';
 
 export type Id<T> = T & { id: string };
 
-export interface Address {
+export interface CustomerAddress {
   addressLine1: string;
   addressLine2?: string;
   city: string;
@@ -11,14 +11,23 @@ export interface Address {
   country: 'CAN' | 'USA'; // Limit support to Canada & US
 }
 
-export interface Customer {
-  address: Address;
-  balance: number;
-  creationDate: number;
+export interface CustomerName {
   firstName: string;
   lastName: string;
-  phone: number;
+}
+
+export interface CustomerContact {
+  email: string;
+  phone: string;
+}
+
+export interface Customer {
+  address: CustomerAddress;
+  contact: CustomerContact;
+  name: CustomerName;
   transactions: Transaction[];
+  balance: number;
+  creationDate: number;
   updatedDate: number;
 }
 

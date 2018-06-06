@@ -3,7 +3,7 @@ import { Component, Input, OnChanges, SimpleChanges, OnDestroy, Output, OnInit }
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import * as STATES from './states.json';
-import { Address } from '@crm/lib';
+import { CustomerAddress } from '@crm/lib';
 import { filter, takeUntil, map } from 'rxjs/operators';
 
 @Component({
@@ -12,8 +12,8 @@ import { filter, takeUntil, map } from 'rxjs/operators';
   styleUrls: ['./address-form.component.scss'],
 })
 export class AddressFormComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() model: Partial<Address> = {};
-  @Output() changed = new Subject<Address>();
+  @Input() model: Partial<CustomerAddress> = {};
+  @Output() changed = new Subject<CustomerAddress>();
 
   readonly form: FormGroup;
   private readonly unsubscribe = new Subject<any>();
@@ -42,7 +42,7 @@ export class AddressFormComponent implements OnInit, OnChanges, OnDestroy {
     .subscribe(this.changed);
   }
 
-  get value(): Address {
+  get value(): CustomerAddress {
     return this.form.value;
   }
 

@@ -13,7 +13,7 @@ import { CustomersService } from './customers.service';
 import { CustomerListComponent } from './customer-list';
 import {
   CustomerDetailsComponent,
-  EditTransactionComponent,
+  CreateTransactionComponent,
   NoCustomerSelectedComponent,
   TransactionListComponent,
 } from './customer-details';
@@ -23,9 +23,12 @@ import {
     AppComponent,
     CustomerListComponent,
     CustomerDetailsComponent,
-    EditTransactionComponent,
+    CreateTransactionComponent,
     NoCustomerSelectedComponent,
     TransactionListComponent,
+  ],
+  entryComponents: [
+    CreateTransactionComponent,
   ],
   imports: [
     BrowserModule,

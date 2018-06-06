@@ -3,18 +3,18 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'crm-edit-transaction',
-  templateUrl: './edit-transaction.component.html',
-  styleUrls: ['./edit-transaction.component.scss'],
+  selector: 'crm-create-transaction',
+  templateUrl: './create-transaction.component.html',
+  styleUrls: ['./create-transaction.component.scss'],
 })
-export class EditTransactionComponent implements OnChanges {
+export class CreateTransactionComponent implements OnChanges {
   readonly form: FormGroup;
   @Input() transaction: Partial<Transaction> = {};
 
   constructor(
     private fb: FormBuilder
   ) {
-    (window as any).editTransactionComponent = this;
+    (window as any).createTransactionComponent = this;
     this.form = this.fb.group({
       amount: this.fb.control(0, [Validators.required]),
       type: ['payment'],

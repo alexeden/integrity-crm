@@ -4,9 +4,19 @@
   mode="indeterminate">
 </mat-progress-bar>
 
-<div class="customer-banner mat-typography">
-  <h3 class="customer-banner__name">{{ fullName | async }}</h3>
-  <h1 class="customer-banner__balance">Balance $0.00</h1>
+<div class="customer-banner mat-typography" fxLayout="row" fxLayoutAlign="space-between center">
+  <div fxLayout="column">
+    <h3 class="customer-banner__name">{{ fullName | async }}</h3>
+    <h1 class="customer-banner__balance">Balance $0.00</h1>
+  </div>
+  <button mat-fab color="accent" (click)="createTransaction()">
+    <mat-icon
+      matTooltip="Create a new transaction"
+      matTooltipPosition="left"
+      aria-label="Add a Transaction">
+      add
+    </mat-icon>
+  </button>
 </div>
 
 <div>

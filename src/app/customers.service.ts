@@ -23,20 +23,29 @@ export class CustomersService {
     this.customers.connect();
   }
 
-  createCustomer(customer: Customer) {
+  createCustomer(customer: Customer): Promise<Id<Customer>> {
     console.log('creating customer!');
-    return this.customerCollection.add(customer);
+    return this.customerCollection
+      .add(customer)
+      .then(doc => ({ id: doc.id, ...customer }));
   }
 
-  updateTransaction(cid: string, tx: Transaction, unsafeTxid?: string) {
-    const txid = typeof unsafeTxid === 'string' ? unsafeTxid : this.store.createId();
+  createTransaction(cid: string, tx: Transaction): Promise<Id<Transaction>> {
+    const txid = this.store.createId();
+    return this.updateTransaction(cid, tx, txid);
+  }
 
+  updateTransaction(cid: string, tx: Transaction, txid: string): Promise<Id<Transaction>> {
     return this.customerCollection
       .doc<Transaction>(`${cid}/transactions/${txid}`)
-      .set(tx, { merge: true });
+      .set(tx, { merge: true })
+      .then(() => ({ id: txid, ...tx }));
   }
 
-  deleteTransaction(cid: string, txid: string) {
-    return this.customerCollection.doc(`${cid}/transactions/${txid}`).delete();
+  deleteTransaction(cid: string, txid: string): Promise<string> {
+    return this.customerCollection
+      .doc(`${cid}/transactions/${txid}`)
+      .delete()
+      .then(() => txid);
   }
 }

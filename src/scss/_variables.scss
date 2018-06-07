@@ -12,7 +12,6 @@ $accent-palette: mat-palette($accent-color-map, $accent-hue, A100, A400);
 $theme: mat-light-theme($primary-palette, $accent-palette);
 @include angular-material-theme($theme);
 
-@debug $primary-palette;
 $primary-color: mat-color($primary-color-map, $primary-hue);
 $primary-color-light: mat-color($primary-color-map, $primary-hue-light);
 $primary-color-dark: mat-color($primary-color-map, $primary-hue-dark);

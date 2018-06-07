@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 import { Component, OnDestroy } from '@angular/core';
-import { Customer } from '@crm/lib';
+import { Customer, CustomerName, CustomerContact, CustomerAddress } from '@crm/lib';
 
 @Component({
   selector: 'crm-create-customer',
@@ -10,8 +10,22 @@ import { Customer } from '@crm/lib';
 export class CreateCustomerComponent implements OnDestroy {
   newCustomer = new Subject<Customer>();
 
-  saveNewCustomer(tx: Customer) {
-    this.newCustomer.next(tx);
+  disabled = false;
+
+  saveNewCustomer(
+    name: CustomerName,
+    contact: CustomerContact,
+    address: CustomerAddress
+  ) {
+    this.newCustomer.next({
+      name,
+      contact,
+      address,
+      balance: 0,
+      transactions: [],
+      creationDate: Date.now(),
+      updatedDate: Date.now(),
+    });
   }
 
   ngOnDestroy() {

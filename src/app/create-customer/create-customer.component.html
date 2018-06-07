@@ -1,10 +1,20 @@
-<crm-transaction-form #txForm>
-</crm-transaction-form>
+<div fxLayout="column" class="mat-typography">
 
-<button
-  [disabled]="!txForm.form.valid"
-  mat-raised-button
-  (click)="saveNewTransaction(txForm.value)"
-  color="primary">
-  Save
-</button>
+  <crm-name-form [disabled]="disabled" #nameForm>
+  </crm-name-form>
+  <crm-contact-form [disabled]="disabled" #contactForm>
+  </crm-contact-form>
+  <crm-address-form [disabled]="disabled" #addressForm>
+  </crm-address-form>
+
+  <div fxLayout="row">
+    <button
+      [disabled]="!nameForm.form.valid || !contactForm.form.valid || !addressForm.form.valid || disabled"
+      mat-raised-button
+      (click)="saveNewCustomer(nameForm.value, contactForm.value, addressForm.value)"
+      color="primary">
+      Save
+    </button>
+  </div>
+
+</div>

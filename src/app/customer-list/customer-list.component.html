@@ -2,31 +2,11 @@
   <mat-list-item
     *ngFor="let customer of customerService.customers | async"
     routerLink="/customers/{{customer.id}}"
+    [routerLinkActive]="['active']"
+    #rla="routerLinkActive"
     queryParamsHandling="preserve">
-    <p matLine>{{ customer.name?.firstName }} {{ customer.name?.lastName }}</p>
-  </mat-list-item>
-  <mat-list-item
-    *ngFor="let customer of customerService.customers | async"
-    routerLink="/customers/{{customer.id}}"
-    queryParamsHandling="preserve">
-    <p matLine>{{ customer.name?.firstName }} {{ customer.name?.lastName }}</p>
-  </mat-list-item>
-  <mat-list-item
-    *ngFor="let customer of customerService.customers | async"
-    routerLink="/customers/{{customer.id}}"
-    queryParamsHandling="preserve">
-    <p matLine>{{ customer.name?.firstName }} {{ customer.name?.lastName }}</p>
-  </mat-list-item>
-  <mat-list-item
-    *ngFor="let customer of customerService.customers | async"
-    routerLink="/customers/{{customer.id}}"
-    queryParamsHandling="preserve">
-    <p matLine>{{ customer.name?.firstName }} {{ customer.name?.lastName }}</p>
-  </mat-list-item>
-  <mat-list-item
-    *ngFor="let customer of customerService.customers | async"
-    routerLink="/customers/{{customer.id}}"
-    queryParamsHandling="preserve">
-    <p matLine>{{ customer.name?.firstName }} {{ customer.name?.lastName }}</p>
+    <h4 matLine>{{ customer.name?.firstName }} {{ customer.name?.lastName }}</h4>
+    <p matLine>Balance {{ customer.balance | currency }}</p>
+    <mat-icon *ngIf="rla.isActive">person</mat-icon>
   </mat-list-item>
 </mat-nav-list>

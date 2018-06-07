@@ -1,3 +1,5 @@
+@import 'variables';
+
 :host {
   display: flex;
   flex-direction: column;
@@ -19,7 +21,7 @@
 
   .customer-banner {
     position: relative;
-    background-color: #4a0072;
+    background-color: $primary-color-dark;
     color: white;
     padding: 96px 24px 48px;
 

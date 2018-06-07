@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  template: `
-    Selected a customer to get started
-  `,
+  templateUrl: './no-customer-selected.component.html',
+  styleUrls: [ './no-customer-selected.component.scss' ]
 })
 export class NoCustomerSelectedComponent {}

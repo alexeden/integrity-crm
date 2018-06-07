@@ -1,12 +1,5 @@
-@import '~@angular/material/theming';
+@import 'variables';
 @include mat-core;
-
-
-$primary: mat-palette($mat-purple, 700, 500, 800);
-$accent: mat-palette($mat-light-green, A200, A100, A400);
-$theme: mat-light-theme($primary, $accent);
-@include angular-material-theme($theme);
-
 
 body {
   position: absolute;
@@ -15,7 +8,6 @@ body {
   left: 0;
   right: 0;
 }
-
 
 .mat-button-wrapper {
   justify-content: center;

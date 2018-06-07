@@ -1,8 +1,9 @@
 <mat-sidenav-container autosize>
-  <mat-sidenav mode="side" [opened]="true">
+  <mat-sidenav #sidenav mode="side" [opened]="true">
     <crm-customer-list></crm-customer-list>
 
     <mat-divider></mat-divider>
+
     <button
       crmCustomerCreator
       mat-button
@@ -13,19 +14,19 @@
       <mat-icon>add</mat-icon>
       <span>&nbsp;New Customer</span>
     </button>
+  </mat-sidenav>
 
-    <mat-divider></mat-divider>
+  <mat-sidenav-content>
     <button
-      mat-button
-      color="primary"
+      (click)="sidenav.toggle()"
+      mat-icon-button
+      class="sidenav-icon-trigger"
+      [ngClass]="sidenav.opened ? 'sidenav-icon-trigger--left' : ''"
       fxLayout="row"
-      fxLayoutAlign="center baseline"
-      class="sidenav-button">
-      <mat-icon>left</mat-icon>
+      fxLayoutAlign="center baseline">
+      <mat-icon>chevron_right</mat-icon>
     </button>
 
-  </mat-sidenav>
-  <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

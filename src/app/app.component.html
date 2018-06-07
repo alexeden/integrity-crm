@@ -1,6 +1,29 @@
-<mat-sidenav-container>
+<mat-sidenav-container autosize>
   <mat-sidenav mode="side" [opened]="true">
     <crm-customer-list></crm-customer-list>
+
+    <mat-divider></mat-divider>
+    <button
+      crmCustomerCreator
+      mat-button
+      color="primary"
+      fxLayout="row"
+      fxLayoutAlign="center baseline"
+      class="sidenav-button">
+      <mat-icon>add</mat-icon>
+      <span>&nbsp;New Customer</span>
+    </button>
+
+    <mat-divider></mat-divider>
+    <button
+      mat-button
+      color="primary"
+      fxLayout="row"
+      fxLayoutAlign="center baseline"
+      class="sidenav-button">
+      <mat-icon>left</mat-icon>
+    </button>
+
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>

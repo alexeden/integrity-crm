@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CustomersService } from './customers.service';
-import { CreateCustomerComponent } from './create-customer';
+import { CreateCustomerComponent, CreateCustomerDirective } from './create-customer';
 import { CreateTransactionComponent } from './create-transaction';
 import { CustomerListComponent } from './customer-list';
 import {
@@ -23,6 +23,7 @@ import {
   declarations: [
     AppComponent,
     CreateCustomerComponent,
+    CreateCustomerDirective,
     CustomerListComponent,
     CustomerDetailsComponent,
     CreateTransactionComponent,

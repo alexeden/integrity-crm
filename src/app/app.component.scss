@@ -1,3 +1,5 @@
+@import '~@angular/material/theming';
+
 :host {
   position: absolute;
   top: 0;
@@ -14,14 +16,17 @@
     flex-direction: row;
 
     mat-sidenav {
+      @include mat-elevation(5);
       width: 250px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
     }
 
     mat-sidenav-content {
       display: flex;
+      height: 100%;
       flex-grow: 1;
       flex-direction: column;
       position: relative;

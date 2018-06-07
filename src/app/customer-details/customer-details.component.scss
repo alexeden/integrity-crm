@@ -12,9 +12,13 @@
 
   .customer-update-loader {
     position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 
   .customer-banner {
+    position: relative;
     // background-color: #ae52d4;
     background-color: #4a0072;
     // background-color: #7b1fa2;

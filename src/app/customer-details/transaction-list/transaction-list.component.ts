@@ -1,21 +1,21 @@
-import { AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { map, switchMap, filter } from 'rxjs/operators';
-import { Component, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Observable, Subject, BehaviorSubject, ConnectableObservable } from 'rxjs';
+import { map, switchMap, filter, tap, publishReplay, delay, startWith } from 'rxjs/operators';
+import { Component, Input, OnChanges, SimpleChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Transaction, FirebaseUtils, Id } from '@crm/lib';
 import { CustomersService } from '../../customers.service';
 
 @Component({
   selector: 'crm-transaction-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './transaction-list.component.html',
   styleUrls: ['./transaction-list.component.scss'],
 })
 export class TransactionListComponent implements OnChanges, OnDestroy {
   @Input() readonly cid: string = '';
   private readonly cid$ = new BehaviorSubject<string | null>(null);
-  readonly transactionCollection: Observable<AngularFirestoreCollection<Transaction>>;
-  readonly transactions: Observable<Array<Id<Transaction>>>;
+  readonly loading = new BehaviorSubject<boolean>(true);
+  readonly transactions: ConnectableObservable<Array<Id<Transaction>>>;
   readonly noTransactions: Observable<boolean>;
   private readonly unsubscribe = new Subject<any>();
 
@@ -23,16 +23,19 @@ export class TransactionListComponent implements OnChanges, OnDestroy {
     private customerService: CustomersService,
     private notifier: MatSnackBar
   ) {
-    this.transactionCollection = this.cid$.pipe(
+    this.transactions = this.cid$.pipe(
       filter<string>(cid => typeof cid === 'string'),
-      map(cid => this.customerService.customerCollection.doc(cid).collection<Transaction>('transactions'))
-    );
+      tap(() => this.loading.next(true)),
+      // Add an artificial delay to prevent wonky list rendering
+      delay(1000),
+      map(cid => this.customerService.customerCollection.doc(cid).collection<Transaction>('transactions')),
+      switchMap(FirebaseUtils.collectionToData),
+      tap(() => this.loading.next(false)),
+      publishReplay(1)
+    ) as ConnectableObservable<Array<Id<Transaction>>>;
 
-    this.transactions = this.transactionCollection.pipe(
-      switchMap(FirebaseUtils.collectionToData)
-    );
-
-    this.noTransactions = this.transactions.pipe(map(ps => ps.length < 1));
+    this.noTransactions = this.transactions.pipe(map(ps => ps.length < 1), startWith(false));
+    this.transactions.connect();
   }
 
   ngOnChanges(changes: SimpleChanges) {

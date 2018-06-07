@@ -1,56 +1,49 @@
-<mat-accordion>
-  <mat-expansion-panel
-    *ngFor="let tx of transactions | async"
-    hideToggle="true">
+<div *ngIf="loading | async" fxLayout="column" fxLayoutAlign="center center">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="loading | async | not">
+  <mat-accordion>
+    <mat-expansion-panel
+      *ngFor="let tx of transactions | async"
+      hideToggle="true">
 
-    <mat-expansion-panel-header>
-      <div fxLayout="row" fxLayoutAlign="space-between baseline">
-        <p fxFill="35">
-          {{ tx.amount | currency }}
-        </p>
-        <p fxFill="35">
-          {{ tx.timestamp | date }}
-        </p>
+      <mat-expansion-panel-header>
+        <div fxLayout="row" fxLayoutAlign="space-between baseline">
+          <p fxFill="35">
+            {{ tx.amount | currency }}
+          </p>
+          <p fxFill="35">
+            {{ tx.timestamp | date }}
+          </p>
 
-        <mat-chip-list fxFill="30">
-          <mat-chip *ngIf="tx.type === 'charge'" color="warn" selected="true">Charge</mat-chip>
-          <mat-chip *ngIf="tx.type === 'payment'" color="accent" selected="true">Payment</mat-chip>
-        </mat-chip-list>
-      </div>
-    </mat-expansion-panel-header>
+          <mat-chip-list fxFill="30">
+            <mat-chip *ngIf="tx.type === 'charge'" color="warn" selected="true">Charge</mat-chip>
+            <mat-chip *ngIf="tx.type === 'payment'" color="accent" selected="true">Payment</mat-chip>
+          </mat-chip-list>
+        </div>
+      </mat-expansion-panel-header>
 
-    <crm-transaction-form #editTransaction [model]="tx">
-    </crm-transaction-form>
+      <crm-transaction-form #editTransaction [model]="tx">
+      </crm-transaction-form>
 
-    <mat-action-row>
-      <button
-        (click)="deleteTransaction(tx.id)"
-        mat-icon-button>
-        <mat-icon aria-label="Delete this transaction">delete</mat-icon>
-      </button>
-      <button
-        [disabled]="!editTransaction.form.valid || !editTransaction.form.dirty"
-        (click)="updateTransaction(tx.id, editTransaction.value)"
-        mat-raised-button
-        color="primary">
-        Save
-      </button>
-    </mat-action-row>
+      <mat-action-row>
+        <button
+          (click)="deleteTransaction(tx.id)"
+          mat-icon-button>
+          <mat-icon aria-label="Delete this transaction">delete</mat-icon>
+        </button>
+        <button
+          [disabled]="!editTransaction.form.valid || !editTransaction.form.dirty"
+          (click)="updateTransaction(tx.id, editTransaction.value)"
+          mat-raised-button
+          color="primary">
+          Save
+        </button>
+      </mat-action-row>
 
-  </mat-expansion-panel>
-</mat-accordion>
+    </mat-expansion-panel>
+  </mat-accordion>
 
-<p *ngIf="noTransactions | async">
-  No transactions yet
-</p>
-
-<!--
-<crm-edit-transaction #newTransaction>
-</crm-edit-transaction>
-<button
-  [disabled]="!newTransaction.valid"
-  (click)="addTransaction(newTransaction.value)"
-  mat-raised-button
-  color="primary">
-  Create
-</button> -->
+  <ng-content *ngIf="noTransactions | async" select="[empty-transaction-list]">
+  </ng-content>
+</div>

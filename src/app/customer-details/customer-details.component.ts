@@ -1,24 +1,25 @@
-import { Observable, Subject, BehaviorSubject, from } from 'rxjs';
-import { map, filter, switchMap, takeUntil, tap, take, switchMapTo } from 'rxjs/operators';
+import { Observable, Subject, BehaviorSubject, from, ConnectableObservable } from 'rxjs';
+import { map, filter, switchMap, takeUntil, tap, take, switchMapTo, distinctUntilChanged, publishReplay } from 'rxjs/operators';
 import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Customer, Transaction } from '@crm/lib';
 import { CreateTransactionComponent } from '@crm/app/create-transaction';
-// import { tag } from '@crm/shared';
+import { tag } from '@crm/shared';
 import { CustomersService } from '../customers.service';
 
 @Component({
   selector: 'crm-customer-details',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './customer-details.component.html',
   styleUrls: ['./customer-details.component.scss'],
 })
 export class CustomerDetailsComponent implements OnInit, OnDestroy {
 
-  cid: Observable<string>;
+  cid: ConnectableObservable<string>;
   customer: Observable<Customer>;
   customerDocument: Observable<AngularFirestoreDocument<Customer>>;
   transactionCollection: Observable<AngularFirestoreCollection<Transaction>>;
@@ -38,8 +39,11 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
     (window as any).customerDetailsComponent = this;
     this.cid = this.route.paramMap.pipe(
       map(params => params.get('cid')),
-      filter<string>(cid => cid !== null)
-    );
+      distinctUntilChanged(),
+      tag('cid'),
+      filter<string>(cid => cid !== null),
+      publishReplay(1)
+    ) as ConnectableObservable<string>;
 
     this.customerDocument = this.cid.pipe(
       map(cid => this.customerService.customerCollection.doc<Customer>(cid))
@@ -65,6 +69,8 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
       map(query => +(query.get('tab') || 0))
     )
     .subscribe(this.selectedTabIndex);
+
+    this.cid.connect();
   }
 
   createTransaction() {

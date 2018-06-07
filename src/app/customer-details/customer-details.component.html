@@ -1,8 +1,3 @@
-<mat-progress-bar
-  *ngIf="updating | async"
-  class="customer-update-loader"
-  mode="indeterminate">
-</mat-progress-bar>
 
 <div class="customer-banner mat-typography" fxLayout="row" fxLayoutAlign="space-between center">
   <div fxLayout="column">
@@ -17,6 +12,11 @@
       add
     </mat-icon>
   </button>
+  <mat-progress-bar
+    *ngIf="updating | async"
+    class="customer-update-loader"
+    mode="indeterminate">
+  </mat-progress-bar>
 </div>
 
 <div>
@@ -112,6 +112,12 @@
       </ng-template>
       <ng-template matTabContent>
         <crm-transaction-list [cid]="cid | async">
+          <div empty-transaction-list fxLayout="column" fxLayoutAlign="center center">
+            <h1>{{ fullName | async }} doesn't have any transactions yet</h1>
+            <button mat-button color="primary" (click)="createTransaction()">
+              Create one
+            </button>
+          </div>
         </crm-transaction-list>
       </ng-template>
     </mat-tab>

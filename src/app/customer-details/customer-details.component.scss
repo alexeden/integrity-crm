@@ -14,25 +14,35 @@
 
   .customer-update-loader {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
   }
 
   .customer-banner {
     position: relative;
-    background-color: $primary-color-dark;
+    background-color: $primary-color;
+    // background-color: $primary-color-dark;
     color: white;
-    padding: 96px 24px 48px;
+    padding: 48px 24px 8px;
 
     &__name {
-      margin: 0;
+      margin: 0 8px 0 0;
       font-weight: 500;
     }
 
     &__balance {
       margin: 0;
+      padding: 8px;
+      background-color: $white-6-opacity;
       font-weight: 300;
     }
   }
+
+  .fab {
+    position: fixed !important;
+    right: 28px !important;
+    bottom: 28px !important;
+  }
+
 }

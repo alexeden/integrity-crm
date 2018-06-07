@@ -1,20 +1,13 @@
 
 <div class="customer-banner mat-typography" fxLayout="row" fxLayoutAlign="space-between center">
-  <div fxLayout="column">
-    <h3 class="customer-banner__name">{{ fullName | async }}</h3>
-    <h1 class="customer-banner__balance">{{ customer | async | prop:'balance' | currency }}</h1>
+  <div fxLayout="row" fxLayoutAlign="flex-start center">
+    <h1 class="customer-banner__name">{{ fullName | async }}</h1>
+    <h3 class="customer-banner__balance">{{ customer | async | prop:'balance' | currency }}</h3>
   </div>
-  <button mat-fab color="accent" [crmTransactionCreator]="cid | async">
-    <mat-icon
-      matTooltip="Create a new transaction"
-      matTooltipPosition="left"
-      aria-label="Add a Transaction">
-      add
-    </mat-icon>
-  </button>
   <mat-progress-bar
     *ngIf="updating | async"
     class="customer-update-loader"
+    color="accent"
     mode="indeterminate">
   </mat-progress-bar>
 </div>
@@ -118,3 +111,12 @@
 
   </mat-tab-group>
 </div>
+
+<button mat-fab color="accent" class="fab" [crmTransactionCreator]="cid | async">
+  <mat-icon
+    matTooltip="Create a new transaction"
+    matTooltipPosition="left"
+    aria-label="Add a Transaction">
+    add
+  </mat-icon>
+</button>

@@ -9,7 +9,7 @@ import { Transaction } from '@crm/lib';
 })
 export class CreateTransactionComponent implements OnDestroy {
   newTransaction = new Subject<Transaction>();
-
+  disabled = false;
   saveNewTransaction(tx: Transaction) {
     this.newTransaction.next(tx);
   }

@@ -1,14 +1,15 @@
 import { Observable, Subject, BehaviorSubject, from } from 'rxjs';
-import { map, filter, switchMap, takeUntil, tap, take, withLatestFrom } from 'rxjs/operators';
+import { map, filter, switchMap, takeUntil, tap, take, withLatestFrom, switchMapTo } from 'rxjs/operators';
 import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Customer, Transaction } from '@crm/lib';
 import { tag } from '@crm/shared';
-import { CustomersService } from '../customers.service';
 import { CreateTransactionComponent } from '@crm/app/create-transaction';
+import { CustomersService } from '../customers.service';
 
 @Component({
   selector: 'crm-customer-details',
@@ -31,7 +32,8 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    public customerService: CustomersService
+    public customerService: CustomersService,
+    private notifier: MatSnackBar
   ) {
     (window as any).customerDetailsComponent = this;
     this.cid = this.route.paramMap.pipe(
@@ -66,32 +68,32 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
   }
 
   createTransaction() {
+    const cid = this.route.snapshot.paramMap.get('cid')!;
     const dialogRef = this.dialog.open(CreateTransactionComponent);
 
-    dialogRef.componentInstance.newTransaction
-      .pipe(
-        take(1),
-        withLatestFrom(this.cid, (tx, cid) => ({ tx, cid }))
-      )
-      .subscribe(async ({ cid, tx }) => {
-        await this.customerService.updateTransaction(cid, tx);
-        dialogRef.close();
-      });
-
+    dialogRef.componentInstance.newTransaction.pipe(
+      tap(() => dialogRef.componentInstance.disabled = true),
+      take(1),
+      switchMap(tx => from(this.customerService.createTransaction(cid, tx)))
+    )
+    .subscribe(({ type }) => {
+      dialogRef.close();
+      this.notifier.open(`✅ ${type} transaction created`);
+    });
   }
 
   updateCustomer<K extends keyof Customer>(prop: K, value: Customer[K]) {
-    console.log('updating customer, ', prop, value);
     this.customerDocument.pipe(
       take(1),
       tap(() => this.updating.next(true)),
       switchMap(doc => from(doc.update({ [prop]: value }))),
-      tap(() => this.updating.next(false)),
-      tag('update result')
+      switchMapTo(this.fullName),
+      tap(() => this.updating.next(false))
     )
-    .subscribe();
+    .subscribe(name => {
+      this.notifier.open(`✅ ${name}'s information updated`);
+    });
   }
-
 
   tabChanged(event: MatTabChangeEvent) {
     this.router.navigate([], {

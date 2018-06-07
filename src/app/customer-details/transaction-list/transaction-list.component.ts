@@ -33,7 +33,6 @@ export class TransactionListComponent implements OnChanges, OnDestroy {
     );
 
     this.noTransactions = this.transactions.pipe(map(ps => ps.length < 1));
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -42,12 +41,12 @@ export class TransactionListComponent implements OnChanges, OnDestroy {
 
   async updateTransaction(txid: string, tx: Transaction) {
     await this.customerService.updateTransaction(this.cid, tx, txid);
-    this.notifier.open(`✅ Transaction was updated`);
+    this.notifier.open(`✅ Transaction updated`);
   }
 
   async addTransaction(tx: Transaction) {
-    await this.customerService.updateTransaction(this.cid, tx);
-    this.notifier.open(`✅ Transaction was created`);
+    await this.customerService.createTransaction(this.cid, tx);
+    this.notifier.open(`✅ Transaction created`);
   }
 
   async deleteTransaction(txid: string) {
@@ -56,7 +55,6 @@ export class TransactionListComponent implements OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log(`TransactionListComponent is being DESTROYED`);
     this.unsubscribe.next('Close all the streams');
     this.unsubscribe.unsubscribe();
   }

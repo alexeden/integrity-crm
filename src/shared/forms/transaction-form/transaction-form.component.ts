@@ -12,6 +12,7 @@ import { filter, takeUntil, map } from 'rxjs/operators';
 })
 export class TransactionFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() model: Partial<Transaction> = {};
+  @Input() disabled = false;
   @Output() changed = new Subject<Transaction>();
 
   readonly form: FormGroup;
@@ -50,12 +51,15 @@ export class TransactionFormComponent implements OnInit, OnChanges, OnDestroy {
     };
   }
 
-  ngOnChanges({ model: { currentValue } }: SimpleChanges) {
-    if (!!currentValue) {
+  ngOnChanges({ model, disabled }: SimpleChanges) {
+    if (!!model && !!model.currentValue) {
       this.form.patchValue({
-        ...currentValue,
-        timestamp: new Date(currentValue.timestamp || Date.now()),
+        ...model.currentValue,
+        timestamp: new Date(model.currentValue.timestamp || Date.now()),
       });
+    }
+    if (!!disabled && typeof disabled.currentValue === 'boolean') {
+      this.form[disabled.currentValue ? 'disable' : 'enable']();
     }
   }
 

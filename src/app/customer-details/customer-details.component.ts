@@ -7,7 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Customer, Transaction } from '@crm/lib';
-import { CreateTransactionComponent } from '@crm/app/create-transaction';
 import { tag } from '@crm/shared';
 import { CustomersService } from '../customers.service';
 
@@ -71,21 +70,6 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
     .subscribe(this.selectedTabIndex);
 
     this.cid.connect();
-  }
-
-  createTransaction() {
-    const cid = this.route.snapshot.paramMap.get('cid')!;
-    const dialogRef = this.dialog.open(CreateTransactionComponent);
-
-    dialogRef.componentInstance.newTransaction.pipe(
-      tap(() => dialogRef.componentInstance.disabled = true),
-      take(1),
-      switchMap(tx => from(this.customerService.createTransaction(cid, tx)))
-    )
-    .subscribe(({ type }) => {
-      dialogRef.close();
-      this.notifier.open(`✅ ${type} transaction created`);
-    });
   }
 
   updateCustomer<K extends keyof Customer>(prop: K, value: Customer[K]) {

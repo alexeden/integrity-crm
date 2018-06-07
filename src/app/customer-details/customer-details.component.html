@@ -4,7 +4,7 @@
     <h3 class="customer-banner__name">{{ fullName | async }}</h3>
     <h1 class="customer-banner__balance">Balance $0.00</h1>
   </div>
-  <button mat-fab color="accent" (click)="createTransaction()">
+  <button mat-fab color="accent" [crmTransactionCreator]="cid | async">
     <mat-icon
       matTooltip="Create a new transaction"
       matTooltipPosition="left"

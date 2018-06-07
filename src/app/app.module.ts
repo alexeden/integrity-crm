@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 
 import { CustomersService } from './customers.service';
 import { CreateCustomerComponent, CreateCustomerDirective } from './create-customer';
-import { CreateTransactionComponent } from './create-transaction';
+import { CreateTransactionComponent, CreateTransactionDirective } from './create-transaction';
 import { CustomerListComponent } from './customer-list';
 import {
   CustomerDetailsComponent,
@@ -27,6 +27,7 @@ import {
     CustomerListComponent,
     CustomerDetailsComponent,
     CreateTransactionComponent,
+    CreateTransactionDirective,
     NoCustomerSelectedComponent,
     TransactionListComponent,
   ],

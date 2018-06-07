@@ -114,7 +114,7 @@
         <crm-transaction-list [cid]="cid | async">
           <div empty-transaction-list fxLayout="column" fxLayoutAlign="center center">
             <h1>{{ fullName | async }} doesn't have any transactions yet</h1>
-            <button mat-button color="primary" (click)="createTransaction()">
+            <button mat-button color="primary" [crmTransactionCreator]="cid | async">
               Create one
             </button>
           </div>

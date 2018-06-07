@@ -2,4 +2,13 @@
 
 :host {
   background-color: $primary-color;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  & *::ng-deep {
+    color: white;
+  }
 }

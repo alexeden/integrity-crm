@@ -9,17 +9,13 @@
 
       <mat-expansion-panel-header>
         <div fxLayout="row" fxLayoutAlign="space-between baseline">
-          <p fxFill="35">
-            {{ tx.amount | currency }}
-          </p>
-          <p fxFill="35">
-            {{ tx.timestamp | date }}
-          </p>
-
-          <mat-chip-list fxFill="30">
+          <mat-chip-list>
             <mat-chip *ngIf="tx.type === 'charge'" color="warn" selected="true">Charge</mat-chip>
             <mat-chip *ngIf="tx.type === 'payment'" color="accent" selected="true">Payment</mat-chip>
           </mat-chip-list>
+          <p>{{ tx.timestamp | date }}</p>
+          <p>{{ tx.amount | currency }}</p>
+
         </div>
       </mat-expansion-panel-header>
 

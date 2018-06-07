@@ -40,15 +40,13 @@
             [disabled]="updating | async"
             [model]="customer | async | prop:'name'">
           </crm-name-form>
-          <mat-card-actions>
-            <button
-              [disabled]="!nameForm.form.valid || !nameForm.form.dirty"
-              (click)="updateCustomer('name', nameForm.value)"
-              mat-raised-button
-              color="primary">
-              Save
-            </button>
-          </mat-card-actions>
+          <button
+            [disabled]="!nameForm.form.valid || !nameForm.form.dirty"
+            (click)="updateCustomer('name', nameForm.value)"
+            mat-raised-button
+            color="primary">
+            Save
+          </button>
         </mat-card>
       </ng-template>
     </mat-tab>
@@ -66,15 +64,13 @@
             [disabled]="updating | async"
             [model]="customer | async | prop:'contact'">
           </crm-contact-form>
-          <mat-card-actions>
-            <button
-              [disabled]="!contactForm.form.valid || !contactForm.form.dirty"
-              (click)="updateCustomer('contact', contactForm.value)"
-              mat-raised-button
-              color="primary">
-              Save
-            </button>
-          </mat-card-actions>
+          <button
+            [disabled]="!contactForm.form.valid || !contactForm.form.dirty"
+            (click)="updateCustomer('contact', contactForm.value)"
+            mat-raised-button
+            color="primary">
+            Save
+          </button>
         </mat-card>
       </ng-template>
     </mat-tab>
@@ -92,15 +88,13 @@
             [disabled]="updating | async"
             [model]="customer | async | prop:'address'">
           </crm-address-form>
-          <mat-card-actions>
-            <button
-              [disabled]="!addressForm.form.valid || !addressForm.form.dirty"
-              (click)="updateCustomer('address', addressForm.value)"
-              mat-raised-button
-              color="primary">
-              Save
-            </button>
-          </mat-card-actions>
+          <button
+            [disabled]="!addressForm.form.valid || !addressForm.form.dirty"
+            (click)="updateCustomer('address', addressForm.value)"
+            mat-raised-button
+            color="primary">
+            Save
+          </button>
         </mat-card>
       </ng-template>
     </mat-tab>

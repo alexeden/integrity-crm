@@ -1,5 +1,5 @@
 import { Observable, Subject, BehaviorSubject, from } from 'rxjs';
-import { map, filter, switchMap, takeUntil, tap, take, withLatestFrom, switchMapTo } from 'rxjs/operators';
+import { map, filter, switchMap, takeUntil, tap, take, switchMapTo } from 'rxjs/operators';
 import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,8 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Customer, Transaction } from '@crm/lib';
-import { tag } from '@crm/shared';
 import { CreateTransactionComponent } from '@crm/app/create-transaction';
+// import { tag } from '@crm/shared';
 import { CustomersService } from '../customers.service';
 
 @Component({

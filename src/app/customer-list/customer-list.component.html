@@ -1,7 +1,8 @@
 <mat-nav-list>
   <mat-list-item
     *ngFor="let customer of customerService.customers | async"
-    routerLink="/customers/{{customer.id}}">
+    routerLink="/customers/{{customer.id}}"
+    queryParamsHandling="preserve">
     <p matLine>{{ customer.name?.firstName }} {{ customer.name?.lastName }}</p>
   </mat-list-item>
 </mat-nav-list>

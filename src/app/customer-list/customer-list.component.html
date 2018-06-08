@@ -6,7 +6,7 @@
     #rla="routerLinkActive"
     queryParamsHandling="preserve">
     <h4 matLine>{{ customer.name?.firstName }} {{ customer.name?.lastName }}</h4>
-    <p matLine>{{ customer.balance | currency }}</p>
+    <p [ngClass]="{ 'negative': customer.balance < 0}" matLine>{{ customer.balance | currency }}</p>
     <mat-icon *ngIf="rla.isActive">person</mat-icon>
   </mat-list-item>
 </mat-nav-list>

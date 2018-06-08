@@ -8,14 +8,13 @@
       hideToggle="true">
 
       <mat-expansion-panel-header>
-        <div fxLayout="row" fxLayoutAlign="space-between baseline">
-          <mat-chip-list>
-            <mat-chip *ngIf="tx.type === 'charge'" color="warn" selected="true">Charge</mat-chip>
-            <mat-chip *ngIf="tx.type === 'payment'" color="accent" selected="true">Payment</mat-chip>
-          </mat-chip-list>
-          <p>{{ tx.timestamp | date }}</p>
-          <p>{{ tx.amount | currency }}</p>
-
+        <div fxLayout="row" fxLayoutAlign="start baseline" fxLayoutGap="16px">
+          <div *ngIf="tx.type === 'charge'" class="chip warn">Charge</div>
+          <div *ngIf="tx.type === 'payment'" class="chip accent">Payment</div>
+          <div fxLayout="row" fxLayoutAlign="space-between baseline" style="flex-grow: 1">
+            <p>{{ tx.timestamp | date }}</p>
+            <p>{{ tx.amount | currency }}</p>
+          </div>
         </div>
       </mat-expansion-panel-header>
 

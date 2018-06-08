@@ -1,18 +1,30 @@
 @import '~@angular/material/theming';
-
+// ----------------------------------
 $primary-color-map: $mat-light-blue;
+$primary-hue-light: 600;
 $primary-hue: 700;
-$primary-hue-light: 700;
 $primary-hue-dark: 900;
+// ----------------------------------
 $accent-color-map: $mat-light-green;
+$accent-hue-light: A100;
 $accent-hue: A200;
-
+$accent-hue-dark: A400;
+// ----------------------------------
+$warn-color-map: $mat-red;
+$warn-hue-light: 100;
+$warn-hue: 500;
+$warn-hue-dark: 700;
+// ----------------------------------
 $primary-palette: mat-palette($primary-color-map, $primary-hue, $primary-hue-light, $primary-hue-dark);
-$accent-palette: mat-palette($accent-color-map, $accent-hue, A100, A400);
-$theme: mat-light-theme($primary-palette, $accent-palette);
+$accent-palette: mat-palette($accent-color-map, $accent-hue, $accent-hue-light, $accent-hue-dark);
+$warn-palette: mat-palette($warn-color-map, $warn-hue, $warn-hue-light, $warn-hue-dark);
+// ----------------------------------
+$theme: mat-light-theme($primary-palette, $accent-palette, $warn-palette);
+// ----------------------------------
 @include angular-material-theme($theme);
 
 $primary-color: mat-color($primary-color-map, $primary-hue);
 $primary-color-light: mat-color($primary-color-map, $primary-hue-light);
 $primary-color-dark: mat-color($primary-color-map, $primary-hue-dark);
 $accent-color: mat-color($accent-color-map, $accent-hue);
+$warn-color: mat-color($warn-color-map, $warn-hue);

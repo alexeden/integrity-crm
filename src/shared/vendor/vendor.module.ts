@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
+// import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -30,7 +30,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
-    MatChipsModule,
+    // MatChipsModule,
     MatDatepickerModule,
     MatDialogModule,
     MatDividerModule,
@@ -58,4 +58,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     },
   ],
 })
-export class VendorModule {}
+export class VendorModule {
+  // constructor(
+    // private chips: MatChipsModule
+  // ) {
+  //   console.log(this.chips);
+  // }
+}

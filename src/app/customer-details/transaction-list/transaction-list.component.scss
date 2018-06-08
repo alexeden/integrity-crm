@@ -1,3 +1,5 @@
+@import 'variables';
+
 :host {
   mat-expansion-panel-header ::ng-deep.mat-content {
     width: 100%;
@@ -7,12 +9,28 @@
     & * {
       margin: 0;
     }
-    // align-items: center;
-    // justify-content: space-between;
+  }
 
-    // & > * {
-    //   flex-grow: 0;
-    // }
+  .chip {
+    &.warn {
+      background-color: $warn-color;
+      color: white;
+    }
+
+    &.accent {
+      background-color: $accent-color;
+    }
+
+    width: 100px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 18px;
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 7px 12px;
+    border-radius: 24px;
   }
 
   mat-action-row {

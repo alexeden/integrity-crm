@@ -14,8 +14,14 @@
   mat-list-item.active {
     & *::ng-deep {
       color: $primary-color;
+
     }
 
     background-color: $black-6-opacity;
+  }
+
+  .negative {
+    font-weight: 500 !important;
+    color: $warn-color !important;
   }
 }
